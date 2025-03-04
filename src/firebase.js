@@ -1,26 +1,22 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDQjXo3Q45Dax8txII7q_02BFqjyac_W8s",
-  authDomain: "mern-blog-4de4a.firebaseapp.com",
-  projectId: "mern-blog-4de4a",
-  storageBucket: "mern-blog-4de4a.appspot.com",
-  messagingSenderId: "943118620511",
-  appId: "1:943118620511:web:e102ef972e153b3dc8c8ea"
+  apiKey: "AIzaSyANKVHOI0ok-qVjKEHsQrqNx7FbQ7KUWqU",
+  authDomain: "react-app-de7eb.firebaseapp.com",
+  databaseURL: "https://react-app-de7eb-default-rtdb.firebaseio.com",
+  projectId: "react-app-de7eb",
+  storageBucket: "react-app-de7eb.firebasestorage.app",
+  messagingSenderId: "344202878470",
+  appId: "1:344202878470:web:9e97cdb12cd3ec9fd16d87",
+  measurementId: "G-8SCCTL9KTP",
 };
-
-// const firebaseConfig = {
-//   apiKey: "AIzaSyB916ASYtflOvxjiVk0y2QnPI5fArtz4OQ",
-//   authDomain: "event-management-e1c9a.firebaseapp.com",
-//   projectId: "event-management-e1c9a",
-//   storageBucket: "event-management-e1c9a.firebasestorage.app",
-//   messagingSenderId: "710092940016",
-//   appId: "1:710092940016:web:a1673795a85de7bb8a5835"
-// };
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+export const analytics = getAnalytics(app);
