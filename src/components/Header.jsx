@@ -7,17 +7,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
 import logo from "/images/logo.png";
+import useApiFetch from "../utils/apiMiddleware";
 export default function Header() {
   const path = useLocation().pathname;
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
-
+  const apiFetch = useApiFetch();
   const handleSignout = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/user/signout", {
-        method: "POST",
-      });
+      const res = await apiFetch("/user/signout", "POST");
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
