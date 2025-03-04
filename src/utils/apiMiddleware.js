@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice"; // Import your action
 
-const BASE_URL = "http://localhost:3000/api"; // Define your base URL here
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"; // Define your base URL here
 
 const useApiFetch = () => {
   const dispatch = useDispatch();

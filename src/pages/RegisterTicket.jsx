@@ -5,11 +5,21 @@ import CustomButton from "../widgets/customButton";
 import useApiFetch from "../utils/apiMiddleware";
 
 export default function RegisterTicket() {
-  const [formData, setFormData] = useState({
+  const initialFormData = {
+    title: "",
+    category: "uncategorized",
+    description: "",
+    price: "",
+    quantity: "",
+    eventDate: "",
+    eventTime: "",
     status: "Registered", // Default status
-  });
+  };
+
+  const [formData, setFormData] = useState(initialFormData);
   const [publishError, setPublishError] = useState(null);
   const apiFetch = useApiFetch();
+
   useEffect(() => {
     const firstInput = document.getElementById("title");
     if (firstInput) {
@@ -28,6 +38,9 @@ export default function RegisterTicket() {
       }
 
       setPublishError(null);
+      // Clear the form after successful submission
+      setFormData(initialFormData);
+      // Optionally navigate to a different page
       // navigate(`/ticket/${data.ticketId}`);
     } catch (error) {
       console.error(error);
@@ -47,6 +60,7 @@ export default function RegisterTicket() {
           id="title"
           placeholder="Enter ticket title"
           required
+          value={formData.title} // Bind value
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
         />
 
@@ -57,6 +71,7 @@ export default function RegisterTicket() {
           </label>
           <Select
             id="category"
+            value={formData.category} // Bind value
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
@@ -77,6 +92,7 @@ export default function RegisterTicket() {
           placeholder="Describe the ticket..."
           type="textarea"
           required
+          value={formData.description} // Bind value
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
@@ -89,6 +105,7 @@ export default function RegisterTicket() {
           type="number"
           placeholder="Enter ticket price"
           required
+          value={formData.price} // Bind value
           onChange={(e) => setFormData({ ...formData, price: e.target.value })}
         />
 
@@ -99,6 +116,7 @@ export default function RegisterTicket() {
           type="number"
           placeholder="Enter number of tickets"
           required
+          value={formData.quantity} // Bind value
           onChange={(e) =>
             setFormData({ ...formData, quantity: e.target.value })
           }
@@ -111,6 +129,7 @@ export default function RegisterTicket() {
             id="eventDate"
             type="date"
             required
+            value={formData.eventDate} // Bind value
             onChange={(e) =>
               setFormData({ ...formData, eventDate: e.target.value })
             }
@@ -121,6 +140,7 @@ export default function RegisterTicket() {
             id="eventTime"
             type="time"
             required
+            value={formData.eventTime} // Bind value
             onChange={(e) =>
               setFormData({ ...formData, eventTime: e.target.value })
             }

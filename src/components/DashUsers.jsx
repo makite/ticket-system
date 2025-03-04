@@ -9,12 +9,12 @@ import useApiFetch from "../utils/apiMiddleware";
 export default function DashUsers() {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
+  const [errors, setErrors] = useState("");
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false); // For adding new user modal
   const apiFetch = useApiFetch();
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -62,14 +62,17 @@ export default function DashUsers() {
 
   const handleDeleteUser = async () => {
     try {
-      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
-        method: "DELETE",
-      });
+      const res = await apiFetch(`/user/delete/${userIdToDelete}`, "DELETE");
       const data = await res.json();
-      if (res.ok) {
+      if (res.statusCode === 200) {
         setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
         setShowModal(false);
       } else {
+        setShowModal(false);
+        setErrors(
+          data.message ||
+            `you can't delete this user, it has linked to another transaction`
+        );
         console.log(data.message);
       }
     } catch (error) {
@@ -90,7 +93,11 @@ export default function DashUsers() {
           </Button>
         </div>
       )}
-
+      {errors.length > 0 && (
+        <span className="text-red-600  bg-red-100  py-2 px-4 rounded inline-flex items-center">
+          {errors}
+        </span>
+      )}{" "}
       {currentUser.isAdmin && users.length > 0 ? (
         <>
           <Table hoverable className="shadow-md">
@@ -151,7 +158,6 @@ export default function DashUsers() {
       ) : (
         <p>You have no users yet!</p>
       )}
-
       {/* Add User Modal */}
       <Modal show={isAddUserModalOpen} onClose={closeAddUserModal} size="md">
         <Modal.Header />
@@ -160,7 +166,6 @@ export default function DashUsers() {
           <Button onClick={closeAddUserModal}>Close</Button>
         </Modal.Body>
       </Modal>
-
       {/* Delete Confirmation Modal */}
       <Modal
         show={showModal}

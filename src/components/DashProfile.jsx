@@ -128,8 +128,13 @@ export default function DashProfile() {
       dispatch(deleteUserStart());
       const res = await apiFetch(`/user/delete/${currentUser._id}`, "DELETE");
       const data = await res.json();
-      if (!res.ok) {
-        dispatch(deleteUserFailure(data.message));
+      if (!res.statusCode != 200) {
+        dispatch(
+          deleteUserFailure(
+            data.message ||
+              `you can't delete this user, it has linked to another transaction`
+          )
+        );
       } else {
         dispatch(deleteUserSuccess(data));
       }
