@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import InputField from "../widgets/inputField";
 import CustomButton from "../widgets/customButton";
 import useApiFetch from "../utils/apiMiddleware";
-
-export default function RegisterTicket() {
+import PropTypes from "prop-types";
+export default function RegisterTicket({ closeModal }) {
   const initialFormData = {
     title: "",
     category: "uncategorized",
@@ -40,6 +40,7 @@ export default function RegisterTicket() {
       setPublishError(null);
       // Clear the form after successful submission
       setFormData(initialFormData);
+      closeModal();
       // Optionally navigate to a different page
       // navigate(`/ticket/${data.ticketId}`);
     } catch (error) {
@@ -173,3 +174,6 @@ export default function RegisterTicket() {
     </div>
   );
 }
+RegisterTicket.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+};

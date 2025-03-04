@@ -15,8 +15,6 @@ const useApiFetch = () => {
       credentials: "include",
       headers: { "Content-Type": "application/json" },
     };
-    console.log("body", body, "options", options);
-
     if (body) {
       options.body = JSON.stringify(body);
     }

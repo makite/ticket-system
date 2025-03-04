@@ -76,7 +76,7 @@ const DashboardAdmin = () => {
 
   return (
     <div className="flex flex-col self-center p-10">
-      <h2 className="text-2xl font-bold mb-10 text-center text-gray-800">
+      <h2 className="text-2xl font-bold mb-10 text-center text-gray-800 dark:text-white">
         Admin Dashboard
       </h2>
 

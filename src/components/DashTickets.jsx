@@ -41,7 +41,7 @@ export default function DashTickets() {
     };
 
     fetchTickets();
-  }, [currentUser, apiFetch]);
+  }, [currentUser]);
 
   const handleShowMore = async () => {
     const startIndex = userTickets.length;
@@ -130,7 +130,7 @@ export default function DashTickets() {
       <Modal show={isModalOpen} onClose={closeModal} size="md">
         <Modal.Header />
         <Modal.Body>
-          <RegisterTicket />
+          <RegisterTicket closeModal={closeModal} />
           <Button onClick={closeModal}>Close</Button>
         </Modal.Body>
       </Modal>
