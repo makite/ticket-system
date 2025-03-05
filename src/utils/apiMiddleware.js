@@ -1,12 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice"; // Import your action
 
 const BASE_URL =
   import.meta.env.VITE_API_URL || "https://mern-ticket-system.vercel.app/api"; // Define your base URL here
 
 const useApiFetch = () => {
-  const { currentUser } = useSelector((state) => state.user);
-
   const dispatch = useDispatch();
 
   const apiFetch = async (endpoint, method = "GET", body = null) => {
@@ -15,14 +13,8 @@ const useApiFetch = () => {
     const options = {
       method,
       credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        "X-User-Id": currentUser?._id || "", // Add currentUser._id to headers
-        "X-Is-Admin": currentUser?.isAdmin || false, // Add currentUser.isAdmin to headers },
-      },
+      headers: { "Content-Type": "application/json" },
     };
-    console.log("isadmin in middleware: " + currentUser?.isAdmin);
-
     if (body) {
       options.body = JSON.stringify(body);
     }

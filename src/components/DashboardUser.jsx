@@ -9,20 +9,27 @@ import {
   Legend,
 } from "chart.js";
 import useApiFetch from "../utils/apiMiddleware";
-
+import { useSelector } from "react-redux";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const DashboardUser = () => {
   const [ticketCount, setTicketCount] = useState(0);
   const [userTicketStats, setUserTicketStats] = useState([]);
   const apiFetch = useApiFetch();
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const [ticketCountRes, userStatsRes] = await Promise.all([
-          apiFetch("/ticket/count/getticketcount"),
-          apiFetch("/ticket/status/getticketstats"),
+          currentUser.isAdmin
+            ? apiFetch(`/ticket/count/getticketcount?userId=${currentUser._id}`)
+            : apiFetch("/ticket/count/getticketcount"),
+          currentUser.isAdmin
+            ? apiFetch(
+                `/ticket/status/getticketstats?userId=${currentUser._id}`
+              )
+            : apiFetch("/ticket/status/getticketstats"),
         ]);
 
         if (ticketCountRes.ok)

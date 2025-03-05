@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 import useApiFetch from "../utils/apiMiddleware";
-
+import { useSelector } from "react-redux";
 // Register ChartJS components
 ChartJS.register(
   CategoryScale,
@@ -27,15 +27,26 @@ const DashboardAdmin = () => {
   const [ticketStats, setTicketStats] = useState([]);
   const [roleCounts, setRoleCounts] = useState([]);
   const apiFetch = useApiFetch();
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [userRes, ticketRes, statsRes, roleRes] = await Promise.all([
-          apiFetch(`/user/count/getusercount`),
-          apiFetch("/ticket/count/getticketcount"),
-          apiFetch("/ticket/status/getticketstats"),
-          apiFetch("/user/role/getuserrolecounts"),
+          currentUser.isAdmin
+            ? apiFetch(`/user/count/getusercount?userId=${currentUser._id}`)
+            : apiFetch(`/user/count/getusercount`),
+          currentUser.isAdmin
+            ? apiFetch(`/ticket/count/getticketcount?userId=${currentUser._id}`)
+            : apiFetch("/ticket/count/getticketcount"),
+          currentUser.isAdmin
+            ? apiFetch(
+                `/ticket/status/getticketstats?userId=${currentUser._id}`
+              )
+            : apiFetch("/ticket/status/getticketstats"),
+          currentUser.isAdmin
+            ? apiFetch(`/user/role/getuserrolecounts?userId=${currentUser._id}`)
+            : apiFetch("/user/role/getuserrolecounts"),
         ]);
 
         if (userRes.ok) setUserCount((await userRes.json()).count);

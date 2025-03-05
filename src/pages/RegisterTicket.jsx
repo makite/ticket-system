@@ -4,6 +4,7 @@ import InputField from "../widgets/inputField";
 import CustomButton from "../widgets/customButton";
 import useApiFetch from "../utils/apiMiddleware";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 export default function RegisterTicket({ closeModal }) {
   const initialFormData = {
     title: "",
@@ -15,6 +16,7 @@ export default function RegisterTicket({ closeModal }) {
     eventTime: "",
     status: "Registered", // Default status
   };
+  const { currentUser } = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState(initialFormData);
   const [publishError, setPublishError] = useState(null);
@@ -30,7 +32,12 @@ export default function RegisterTicket({ closeModal }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await apiFetch("/ticket/register", "POST", formData);
+      const dataToSend = {
+        ...formData,
+        userId: currentUser._id, // Add userId here
+      };
+
+      const res = await apiFetch("/ticket/register", "POST", dataToSend);
       const data = await res.json();
       if (!res.ok) {
         setPublishError(data.message);
