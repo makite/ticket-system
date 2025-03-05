@@ -146,7 +146,7 @@ export default function DashTickets() {
             <Table.Head>
               <Table.HeadCell>Date Updated</Table.HeadCell>
               <Table.HeadCell>Ticket Title</Table.HeadCell>
-              {/* <Table.HeadCell>Created By</Table.HeadCell> */}
+              <Table.HeadCell>Created By</Table.HeadCell>
               <Table.HeadCell>Category</Table.HeadCell>
               <Table.HeadCell>Price</Table.HeadCell>
               <Table.HeadCell>Quantity</Table.HeadCell>
@@ -165,11 +165,11 @@ export default function DashTickets() {
                     {new Date(ticket.updatedAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>{ticket.title}</Table.Cell>
-                  {/* <Table.Cell>
+                  <Table.Cell>
                     {ticket.userId.email === null
                       ? ticket.userId.username
                       : ticket.userId.email}
-                  </Table.Cell> */}
+                  </Table.Cell>
                   {/* Display user email */}
                   <Table.Cell>{ticket.category}</Table.Cell>
                   <Table.Cell>${ticket.price.toFixed(2)}</Table.Cell>
