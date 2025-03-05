@@ -1,7 +1,6 @@
 import { Modal, Table, Button, Select } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { HiPlus } from "react-icons/hi2"; // Import the plus icon
 import RegisterTicket from "../pages/RegisterTicket";
@@ -159,14 +158,7 @@ export default function DashTickets() {
                   <Table.Cell>
                     {new Date(ticket.updatedAt).toLocaleDateString()}
                   </Table.Cell>
-                  <Table.Cell>
-                    <Link
-                      className="font-medium text-gray-900 dark:text-white"
-                      to={`/ticket-details/${ticket._id}`}
-                    >
-                      {ticket.title}
-                    </Link>
-                  </Table.Cell>
+                  <Table.Cell>{ticket.title}</Table.Cell>
                   {/* <Table.Cell>
                     {ticket.userId.email === null
                       ? ticket.userId.username
