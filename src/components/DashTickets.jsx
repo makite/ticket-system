@@ -27,7 +27,13 @@ export default function DashTickets() {
             ? `/ticket/gettickets`
             : `/ticket/gettickets?userId=${currentUser._id}`
         );
+        console.log(
+          "user: " + currentUser._id + "isAdmin: " + currentUser.isAdmin
+        );
+
         const data = await res.json();
+        console.log("data: " + data);
+
         if (res.ok) {
           setUserTickets(data.tickets);
           if (data.tickets.length < 9) {
