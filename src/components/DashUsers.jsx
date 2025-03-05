@@ -38,15 +38,9 @@ export default function DashUsers() {
   const handleShowMore = async () => {
     const startIndex = users.length;
     try {
-      const res = await fetch(
-        `http://localhost:3000/api/user/getusers?startIndex=${startIndex}`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const res = await apiFetch(
+        `/user/getusers?startIndex=${startIndex}`,
+        "GET"
       );
       const data = await res.json();
       if (res.ok) {
