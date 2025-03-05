@@ -167,7 +167,11 @@ export default function DashTickets() {
                       {ticket.title}
                     </Link>
                   </Table.Cell>
-                  <Table.Cell>{ticket.userId.email}</Table.Cell>{" "}
+                  <Table.Cell>
+                    {ticket.userId.email === null
+                      ? ticket.userId.username
+                      : ticket.userId.email}
+                  </Table.Cell>
                   {/* Display user email */}
                   <Table.Cell>{ticket.category}</Table.Cell>
                   <Table.Cell>${ticket.price.toFixed(2)}</Table.Cell>
