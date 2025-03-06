@@ -63,7 +63,7 @@ const DashboardAdmin = () => {
 
   // Create ticket data for the chart
   const ticketData = {
-    labels: ticketStats.map((stat) => stat._id), // Use _id as labels for statuses
+    labels: ticketStats.map((stat) => stat.status), // Use _id as labels for statuses
     datasets: [
       {
         label: "Ticket Status",
