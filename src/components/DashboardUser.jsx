@@ -22,14 +22,8 @@ const DashboardUser = () => {
     const fetchUserData = async () => {
       try {
         const [ticketCountRes, userStatsRes] = await Promise.all([
-          currentUser.isAdmin
-            ? apiFetch(`/ticket/count/getticketcount?userId=${currentUser._id}`)
-            : apiFetch("/ticket/count/getticketcount"),
-          currentUser.isAdmin
-            ? apiFetch(
-                `/ticket/status/getticketstats?userId=${currentUser._id}`
-              )
-            : apiFetch("/ticket/status/getticketstats"),
+          apiFetch(`/ticket/count/getticketcount?userId=${currentUser._id}`),
+          apiFetch(`/ticket/status/getticketstats?userId=${currentUser._id}`),
         ]);
 
         if (ticketCountRes.ok)
