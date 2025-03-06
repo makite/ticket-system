@@ -46,7 +46,7 @@ export default function DashTickets() {
     };
 
     fetchTickets();
-  }, [currentUser]);
+  }, [currentUser.apiFetch]);
 
   const handleShowMore = async () => {
     const startIndex = userTickets.length;

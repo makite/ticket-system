@@ -126,7 +126,10 @@ export default function DashProfile() {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await apiFetch(`/user/delete/${currentUser._id}`, "DELETE");
+      const res = await apiFetch(
+        `/user/delete?userId=${currentUser._id}`,
+        "DELETE"
+      );
       const data = await res.json();
       if (!res.statusCode != 200) {
         dispatch(
