@@ -25,6 +25,10 @@ const DashboardUser = () => {
           apiFetch(`/ticket/count/getticketcount?userId=${currentUser._id}`),
           apiFetch(`/ticket/status/getticketstats?userId=${currentUser._id}`),
         ]);
+        console.log(
+          "end",
+          `/ticket/status/getticketstats?userId=${currentUser._id}`
+        );
 
         if (ticketCountRes.ok)
           setTicketCount((await ticketCountRes.json()).count);
