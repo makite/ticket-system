@@ -33,18 +33,18 @@ const DashboardAdmin = () => {
     const fetchData = async () => {
       try {
         const [userRes, ticketRes, statsRes, roleRes] = await Promise.all([
-          currentUser.isAdmin
+          !currentUser.isAdmin
             ? apiFetch(`/user/count/getusercount?userId=${currentUser._id}`)
             : apiFetch(`/user/count/getusercount`),
-          currentUser.isAdmin
+          !currentUser.isAdmin
             ? apiFetch(`/ticket/count/getticketcount?userId=${currentUser._id}`)
             : apiFetch("/ticket/count/getticketcount"),
-          currentUser.isAdmin
+          !currentUser.isAdmin
             ? apiFetch(
                 `/ticket/status/getticketstats?userId=${currentUser._id}`
               )
             : apiFetch("/ticket/status/getticketstats"),
-          currentUser.isAdmin
+          !currentUser.isAdmin
             ? apiFetch(`/user/role/getuserrolecounts?userId=${currentUser._id}`)
             : apiFetch("/user/role/getuserrolecounts"),
         ]);
